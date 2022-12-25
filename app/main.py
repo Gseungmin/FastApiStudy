@@ -29,7 +29,7 @@ async def root(request: Request):
     print(await mongodb.engine.save(book)) #save 함수가 async함수 이므로 즉 코루틴 함수 이므로 await을 붙임
     return templates.TemplateResponse("./index.html", {"request": request, "title": "콜렉터"})
 
-#q를 통해 검색어 받기
+#q를 통해 검색어 받기, 데이터를 받아 MongoDB에 저장
 @app.get("/search", response_class=HTMLResponse)
 async def search(request: Request, q:str):
     return templates.TemplateResponse("./index.html", {"request": request, "keyword": q})

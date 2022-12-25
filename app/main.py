@@ -21,6 +21,11 @@ templates = Jinja2Templates(directory=BASE_DIR/"templates")
 
 #Response 타입이 html, 기본적으로 json 타입
 #index.html에 request와 id 변수에 값 지정
-@app.get("/items/{id}", response_class=HTMLResponse)
-async def read_item(request: Request, id: str):
-    return templates.TemplateResponse("./index.html", {"request": request, "id": id})
+@app.get("/", response_class=HTMLResponse)
+async def root(request: Request):
+    return templates.TemplateResponse("./index.html", {"request": request, "title": "콜렉터"})
+
+#q를 통해 검색어 받기
+@app.get("/search", response_class=HTMLResponse)
+async def search(request: Request, q:str):
+    return templates.TemplateResponse("./index.html", {"request": request, "keyword": q})
